@@ -1,7 +1,8 @@
-import { Box, ChakraProvider, Container, Flex, Heading, IconButton, Input, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Box, ChakraProvider, Container, Flex, Heading, IconButton, Input, SimpleGrid, Text, VStack, useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Textarea } from "@chakra-ui/react";
 import { FaBell, FaSearch, FaUserCircle } from "react-icons/fa";
 
 const Index = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <ChakraProvider>
       <Container maxW="container.xl" p={0}>
@@ -20,7 +21,10 @@ const Index = () => {
           {/* Main Content */}
           <Flex flex={1}>
             {/* Sidebar */}
-            <Box w="250px" bg="gray.50" p={4}>
+            <Box w="250px" bg="gray.50" p={4} position="relative">
+              <Button onClick={onOpen} colorScheme="blue" position="absolute" top="4" right="4">
+                Add Note
+              </Button>
               <VStack align="stretch" spacing={4}>
                 <Text fontWeight="bold">Notes</Text>
                 <Text fontWeight="bold">Databases</Text>
@@ -52,6 +56,24 @@ const Index = () => {
                 </Box>
               </SimpleGrid>
             </Box>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Add a New Note</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <VStack spacing={4}>
+                    <Input placeholder="Note Title" />
+                    <Textarea placeholder="Note Content" />
+                  </VStack>
+                </ModalBody>
+                <ModalFooter>
+                  <Button colorScheme="blue" mr={3} onClick={onClose}>
+                    Save Note
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
           </Flex>
         </Flex>
       </Container>
