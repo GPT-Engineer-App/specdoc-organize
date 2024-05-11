@@ -43,11 +43,14 @@ const Index = () => {
               <SimpleGrid columns={3} spacing={4}>
                 <Box bg="white" p={4} shadow="md">
                   <Text fontWeight="bold">Recent Files</Text>
-                  {notes.map((note, index) => (
-                    <Text key={index} fontSize="sm">
-                      {note.title}
-                    </Text>
-                  ))}
+                  <SimpleGrid columns={1} spacing={4}>
+                    {notes.map((note, index) => (
+                      <Box key={index} bg="white" p={4} shadow="md">
+                        <Text fontWeight="bold">{note.title}</Text>
+                        <Text fontSize="sm">{note.content}</Text>
+                      </Box>
+                    ))}
+                  </SimpleGrid>
                 </Box>
                 <Box bg="white" p={4} shadow="md">
                   <Text fontWeight="bold">Pinned Items</Text>
