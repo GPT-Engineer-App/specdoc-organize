@@ -30,6 +30,9 @@ const Index = () => {
               <VStack align="stretch" spacing={4}>
                 <Text fontWeight="bold">Notes</Text>
                 <Text fontWeight="bold">Databases</Text>
+                <Text fontWeight="bold" as="a" href="/notes">
+                  All Notes
+                </Text>
                 <Text fontWeight="bold">Tasks</Text>
                 <Text fontWeight="bold">Shared Spaces</Text>
               </VStack>
