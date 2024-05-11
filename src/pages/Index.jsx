@@ -1,8 +1,10 @@
 import { Box, ChakraProvider, Container, Flex, Heading, IconButton, Input, SimpleGrid, Text, VStack, useDisclosure, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Textarea } from "@chakra-ui/react";
+import { useState } from "react";
 import { FaBell, FaSearch, FaUserCircle } from "react-icons/fa";
 
 const Index = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [notes, setNotes] = useState([]);
   return (
     <ChakraProvider>
       <Container maxW="container.xl" p={0}>
@@ -41,8 +43,11 @@ const Index = () => {
               <SimpleGrid columns={3} spacing={4}>
                 <Box bg="white" p={4} shadow="md">
                   <Text fontWeight="bold">Recent Files</Text>
-                  <Text fontSize="sm">File One.docx</Text>
-                  <Text fontSize="sm">File Two.docx</Text>
+                  {notes.map((note, index) => (
+                    <Text key={index} fontSize="sm">
+                      {note.title}
+                    </Text>
+                  ))}
                 </Box>
                 <Box bg="white" p={4} shadow="md">
                   <Text fontWeight="bold">Pinned Items</Text>
@@ -63,12 +68,19 @@ const Index = () => {
                 <ModalCloseButton />
                 <ModalBody>
                   <VStack spacing={4}>
-                    <Input placeholder="Note Title" />
-                    <Textarea placeholder="Note Content" />
+                    <Input placeholder="Note Title" id="noteTitle" />
+                    <Textarea placeholder="Note Content" id="noteContent" />
                   </VStack>
                 </ModalBody>
                 <ModalFooter>
-                  <Button colorScheme="blue" mr={3} onClick={onClose}>
+                  <Button
+                    colorScheme="blue"
+                    mr={3}
+                    onClick={() => {
+                      setNotes([...notes, { title: document.getElementById("noteTitle").value, content: document.getElementById("noteContent").value }]);
+                      onClose();
+                    }}
+                  >
                     Save Note
                   </Button>
                 </ModalFooter>
